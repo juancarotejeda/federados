@@ -1,4 +1,4 @@
-import mysql.connector,funciones,os
+import funciones,os,db,mysql.connector
 from flask import Flask, render_template,flash, request,  redirect, url_for
 from datetime import datetime
 from dotenv import load_dotenv
@@ -6,6 +6,7 @@ load_dotenv()
 
 app = Flask(__name__)
 app.secret_key=os.getenv("APP_KEY")
+
 DB_HOST =os.getenv('DB_HOST')
 DB_USERNAME =os.getenv("DB_USERNAME")
 DB_PASSWORD =os.getenv("DB_PASSWORD")
@@ -20,6 +21,9 @@ connection = mysql.connector.connect(
     autocommit=True
 )
 
+
+
+
 @app.route("/")
 def login():                     
     return render_template('login.html')
@@ -29,10 +33,9 @@ def verificador():
    msg = ''   
    if request.method == 'POST':        
     password = request.form['password'] 
-    print(password) 
-    cur = connection.cursor() 
+    print(password)
+    cur =connection.cursor()
     paradas=funciones.vef_cedula_federado(cur,password) 
-    print(paradas) 
     if paradas!= []: 
             parada=[]                                                                      
             fecha = datetime.strftime(datetime.now(),"%Y %m %d - %H")            
@@ -54,7 +57,7 @@ def seleccion():
    if request.method == 'POST':        
         parada = request.form['selector']
         password = request.form['password']   
-        cur = connection.cursor() 
+        cur =connection.cursor() 
         if parada!= []:
             if password == 'intrant': 
                 paradas=funciones.vef_cedula_federado(cur,password)                                                                           
@@ -65,7 +68,7 @@ def seleccion():
                 cuotas_hist = funciones.pendiente_aport(cur,parada)
                 cabecera=funciones.info_cabecera(cur,parada)
                 cur.close()            
-                return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas)  
+                return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password)  
             else:
                 paradas=funciones.vef_cedula_federado(cur,password)                                                                           
                 fecha = datetime.strftime(datetime.now(),"%Y %m %d - %H")            
@@ -75,7 +78,7 @@ def seleccion():
                 cuotas_hist = funciones.pendiente_aport(cur,parada)
                 cabecera=funciones.info_cabecera(cur,parada)
                 cur.close()            
-                return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas)                
+                return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password)                
         else:
             msg = 'su password no esta registrado!'        
             flash(msg)           
@@ -96,4 +99,4 @@ def canal():
 
 
 if __name__ == "__main__":
-    app.run(debug=True,host='0.0.0.0',port=6800)
+    app.run(debug=True,host='0.0.0.0',port=7800)

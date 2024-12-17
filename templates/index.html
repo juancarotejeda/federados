@@ -152,19 +152,19 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link disabled" aria-current="page" href="#"></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link disabled" href="#"></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          <a class="nav-link disabled" aria-disabled="true"></a>
         </li>
       </ul>
       <form class="d-flex" role="search" method="POST" action="seleccion">
         <select class="form-control me-2  selector" name="selector" required>
           <option value="">
-            Seleccione
+            paradas
           </option>
           {%for paradax in paradas %}
           <Option value="{{paradax}}">
@@ -180,25 +180,26 @@
 </nav>
 <main class="container">
   <div class="row mb-3 text-center">
-    <div class="col-lg-4  list_pago "> 
+    <div class="col-lg-4  publicidad mb-1 m">     
+      <img  src="/static/imagenes/indotel.gif" alt="publicidad">
+    </div> 
+    <div class="col-lg-4 mt-3 text-bg-primary mb-3"> 
     <h1>Gracias por aceptar esta aplicacion!!</h1>
-    <p class="lead">Este es un enorme esfuerzo realizado por El presidente de tu parada,la Federaciones de mototaxis.Con el apollo de la <code> SUBDIRECCION DEL INTRAN</code><br>
-     y <code>GRUPO ACTEC</code> Para darle Formalidad la labor que ustedes realizan</p>
+    <p class="lead">Este es un enorme esfuerzo realizado por  la <code> SUBDIRECCION DEL INTRAN</code><br>
+    para ustedes los encargados de las diferentes<h1>Federaciones del pais </h1> con el apollo tecnico del <code>GRUPO ACTEC</code> y asi darle Formalidad la labor que ustedes realizan</p>
     </div>
-    <div class="col-lg-4  publicidad">     
-        <img  src="/static/imagenes/barrio_seguro-intran.gif" alt="publicidad">
-    </div>   
+  
   {%for datos in informacion %}
   <div class="row mb-3 text-center"> 
-  <div class="col-lg-4 themed-grid-col list_pago">  
+  <div class="col-lg-4 themed-grid-col text-info">  
     <h1>Informacion General</h1>
-    <p><h2>Saludos Señor(a) {{nombre}}</h2></p>  
+    <p><h2>Saludos Señor(a) {{password}}</h2></p>  
     <p><h3>Usted esta en la parada {{datos[1]}}</h3></p>
     <p><h3>Grupo Actec</h3></p>
   </div>
-  <div class="col-lg-4 themed-grid-col list_pago">
+  <div class="col-lg-4 mb-3">
     <h1>Miembros Registrado</h1>
-    <table>
+    <table class="table-bordered border-primary m-auto">
            <tr>
               <th>Item</th>
               <th>Nombre del asociado</th>
@@ -217,9 +218,9 @@
            {%endfor%}
            </table>
       </div> 
-      <div class="col-lg-4 themed-grid-col list_pago">   
+      <div class="col-lg-4 mb-3">   
            <h1>INFORMACION FINANCIERA</h1>
-        <table>
+           <table class="table-bordered border-primary w-100 offset-1">
           <tr>
               <th>Item</th>
               <th>Informacion financiera</th>
@@ -267,9 +268,9 @@
          </tr>
         </table>
       </div>
-      <div class="col-lg-4 themed-grid-col list_pago">   
+      <div class="col-lg-4 mb-3">   
          <h1>Historial de Aportes y Pendientes</h1>
-      <table>
+         <table class="table-bordered border-primary w-100">
       <tr>
         <th> asociado</th>
         <th>cuotas</th>
@@ -288,54 +289,73 @@
       {%endfor%}             
       </table>
   </div>
-  <div class="col-lg-4  list_pago bg-warning">  
-       
+  <div class="col-lg-4 bg-info ps-4 text-dark mb-3 offset-1">       
     <h1>INFORMACION DE LA PARADA</h1>  
-    <ol>    
+    <ol class="list-group text-dark">    
     <li>
-    <label for="parada">Nombre:</label>
-    <input type="text" value={{datos[1]}} id="parada" readonly>
+    <label for="parada"class="label float-start  ">
+    <em>Nombre:</em>  
+    <input class="input border-0 bg-info text-dark" type="text" value={{datos[1]}} id="parada" readonly border-0>
+    </label>
     </li>
     <li>
-    <label for="direccion">Direccion:</label>
-    <input type="text" value={{datos[2]}} id="direccion" readonly>
+    <label for="direccion" class="label float-start">
+    <em>Direccion:</em> 
+    <input class="input border-0 bg-info text-dark " type="text"  value={{datos[2]}} id="direccion" readonly>
+    </label>
     </li>
     <li>
-    <label for="municipio">Municipio:</label>
-    <input type="text" value={{datos[3]}} id="municipio" readonly>
+    <label for="municipio"class="label float-start">
+    <em>Municipio:</em>  
+    <input class="input border-0 bg-info text-dark " type="text" value={{datos[3]}} id="municipio" readonly>
+    </label>
     </li>
     <li>
-    <label for="provincia">Provincia:</label>
-    <input type="text" value={{datos[4]}} id="provincia" readonly>
+    <label for="provincia"class="label float-start">
+    <em>Provincia:</em>  
+    <input class="input border-0 bg-info text-dark" type="text" value={{datos[4]}} id="provincia" readonly>
+    </label>
     </li>
     <li>
-    <label for="zona">Zona :</label>
-    <input type="text" value={{datos[5]}} id="zona" readonly>
+    <label for="zona"class="label float-start">
+    <em>Zona :</em>   
+    <input class="input border-0 bg-info text-dark" type="text" value={{datos[5]}} id="zona" readonly>
+    </label>
     </li>
     <li>
-    <label for="aporte">Aporte :</label>
-    <input type="text" value={{datos[6]}}RD$/{{datos[7]}} id="aporte" readonly>
+    <label for="aporte"class="label float-start">
+    <em>Aporte :</em> 
+    <input class="input border-0 bg-info text-dark" type="text" value={{datos[6]}}RD$/{{datos[7]}} id="aporte" readonly>
+    </label>
     </li>    
     <li>
-    <label for="press">presidente:</label>
-    <input type="text" value={{cabecera[1]}} id="press" readonly>
+    <label for="press"class="label float-start">
+    <em>presidente:</em>
+    <input class="input border-0 bg-info text-dark" type="text" value={{cabecera[1]}} id="press" readonly>
+    </label>
     </li>
     <li>
-    <label for="federado">Pte. Feder.:</label>
-    <input type="text" value={{datos[10]}} id="federado" readonly>
+    <label for="federado"class="label float-start">
+    <em>Pte. Feder.:</em>  
+    <input class="input border-0 bg-info text-dark" type="text" value={{datos[10]}} id="federado" readonly>
+    </label>
     </li>
     <li>
-    <label for="miemb">Miembros:</label>
-    <input type="text" value={{cabecera[0]}} id="miemb" readonly>
+    <label for="miemb"class="label float-start">
+    <em>Miembros:</em>  
+    <input class="input border-0 bg-info text-dark " type="text" value={{cabecera[0]}} id="miemb" readonly>
+    </label>
     </li>
     <li>
-    <label for="geo">Geolocalizacion:</label>
-    <input type="text" value={{datos[11]}} id="geo" readonly>
+    <label for="geo"class="label float-start">
+    <em>Geolocalizacion:</em>    
+    <input class="input border-0 bg-info text-dark"  value={{datos[11]}} id="geo" readonly>   
+    </label>
     </li>
     </ol>
   </div>
   {%endfor%}
-  <div class="col-lg-4 themed-grid-col list_pago">
+  <div class="col-lg-4 ">
     <a class = "btn btn-lg btn-primary"  href="{{url_for('canal')}}" type="html" role="button">Canal MotoBen &raquo;</a>
   </div>
   </div>
