@@ -143,220 +143,332 @@
         </li>
       </ul>
     </div>   
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Gerentes y Federados</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-current="page" href="#"></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#"></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true"></a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search" method="POST" action="seleccion">
-        <select class="form-control me-2  selector" name="selector" required>
-          <option value="">
-            paradas
-          </option>
-          {%for paradax in paradas %}
-          <Option value="{{paradax}}">
-             {{paradax}}
-          </Option>
-          {%endfor%}
-          <input type="hidden" name="password" value="{{password}}">
-        </select>
-        <button class="btn btn-outline-warning" type="submit">Seleccionar</button>
-      </form>
-    </div>
-  </div>
-</nav>
+
 <main class="container">
   <div class="row mb-3 text-center">
-    <div class="col-lg-4  publicidad mb-1 m">     
-      <img  src="/static/imagenes/indotel.gif" alt="publicidad">
-    </div> 
-    <div class="col-lg-4 mt-3 text-bg-primary mb-3"> 
+  <div class="col-lg-4 mt-1 text-primary mb-1"> 
+    <p class="lead">Este es un enorme esfuerzo realizado por  la <code> SUBDIRECCION DEL INTRAN</code>
+      con el apollo tecnico del <code>GRUPO ACTEC</code> </p>
     <h1>Gracias por aceptar esta aplicacion!!</h1>
-    <p class="lead">Este es un enorme esfuerzo realizado por  la <code> SUBDIRECCION DEL INTRAN</code><br>
-    para ustedes los encargados de las diferentes<h1>Federaciones del pais </h1> con el apollo tecnico del <code>GRUPO ACTEC</code> y asi darle Formalidad la labor que ustedes realizan</p>
-    </div>
-  
-  {%for datos in informacion %}
-  <div class="row mb-3 text-center"> 
-  <div class="col-lg-4 themed-grid-col text-info">  
-    <h1>Informacion General</h1>
-    <p><h2>Saludos Señor(a) {{password}}</h2></p>  
-    <p><h3>Usted esta en la parada {{datos[1]}}</h3></p>
-    <p><h3>Grupo Actec</h3></p>
   </div>
-  <div class="col-lg-4 mb-3">
-    <h1>Miembros Registrado</h1>
-    <table class="table-bordered border-primary m-auto">
-           <tr>
-              <th>Item</th>
-              <th>Nombre del asociado</th>
-              <th>Cedula</th>
-              <th>Telefono</th>
-              <th>Funcion</th>
-           </tr>
-           {% for usuario in miembros %}
-           <tr>
-              <td>{{usuario[0]}}</td>
-              <td>{{usuario[1]}}</td>
-              <td> Oculta </td>
-              <td>{{usuario[3]}}</td>
-              <td>{{usuario[4]}}</td>
-           </tr>
-           {%endfor%}
-           </table>
+  
+    <div class="container-fluid">
+      <article class="my-3" id="modal">
+          <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2 ">
+          <div class="bd-example-snippet bd-code-snippet">            
+          <div class="col-lg-4 text-bg-primary   p-2 ">
+          <P><h3>{{limites}}</h3></P> 
+          <ol class="list-group text-white ms-3">
+          <li > 
+           <label for="" class="label float-start">Seleccone una parada</label>
+         </li>
+         <li >
+          <label for="" class="label float-start">presione Entrar para continuar</label>
+         </li>
+         </ol>
+      </div>    
+      <div class="col mb-3 p-2  text-bg-primary ">        
+      <form class="d-flex " role="search" method="POST" action="seleccion">
+        <select class="form-control me-2 selector bg-success text-white" name="selector" required>
+        <option value="">
+            paradas
+        </option>
+          {%for paradax in paradas %}
+        <Option value="{{paradax}}">
+             {{paradax}}
+        </Option>
+        {%endfor%}
+          <input type="hidden" name="password" value="{{password}}">
+          <input type="hidden" name="acceso" value="{{limites}}">
+        </select>
+        <button class="btn btn-outline-warning" type="submit">Entrar</button>      
+      </form>
+      <div class="p-2  mb-3 text-bg-primary ">
+        {%for datos in informacion %} 
+        <ol class="list-group text-white ms-3">
+        <li > 
+         <label class="label float-start">Esta en la parada: {{datos[1]}}</label>
+        </li> 
+        <li>
+         <label class="label float-start">favor elija la opcion deseada</label>
+        </li>
+        <li>
+          <label class="label float-start">Recuerde visitar su canal MotoBen</label>
+         </li>
+        </ol> 
+        {%endfor%}
       </div> 
-      <div class="col-lg-4 mb-3">   
-           <h1>INFORMACION FINANCIERA</h1>
-           <table class="table-bordered border-primary w-100 offset-1">
+      </div> 
+      <div class="d-flex justify-content-between flex-wrap">  
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#myModal1">
+    Informacion parada
+    </button>
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#myModal2">
+    Miembros parada
+    </button>
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#myModal3">
+    Reporte Financiero
+    </button>
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#myModal4">
+    Historial de  Pagos
+    </button>
+    <button type="button" class="btn btn-warning mb-3">
+        <a class="text-black"  href="https://www.youtube.com/@grupo_atecMotoBen" >Mi Canal MotoBen </a>  
+    </button>
+  </div> 
+
+  <div class="col-lg-4  publicidad mb-1 me-10 ">     
+    <img  src="/static/imagenes/indotel.gif" class=" w-100" alt="publicidad">
+</div>      
+  </div>           
+  </div>
+  </div> 
+  </article>  
+</div>
+  </div>
+ 
+  <div class="modal fade" id="myModal2">
+    <div class="modal-dialog  modal-lg">
+    <div class="modal-content">   
+    <!-- Modal Header -->
+    <div class="modal-header">
+    <h1 class="modal-title">Lista de Miembros</h1>
+    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>   
+    <!-- Modal body -->
+    <div class="modal-body ">
+      {%for datos in informacion %}
+      <div class="col-lg-4 mb-3">
+        <h2 class=" text-center text-primary">Miembros Registrado</h2>
+        <table class="table-bordered border-primary m-auto">
+        <thead class=" text-center">  
+               <tr>
+                  <th>Item</th>
+                  <th>Nombre del asociado</th>
+                  <th>Cedula</th>
+                  <th>Telefono</th>
+                  <th>Funcion</th>
+               </tr>
+        </thead>
+          <tbody>     
+               {% for usuario in miembros %}
+               <tr>
+                  <td>{{usuario[0]}}</td>
+                  <td>{{usuario[1]}}</td>
+                  <td> Oculta </td>
+                  <td>{{usuario[3]}}</td>
+                  <td>{{usuario[4]}}</td>
+               </tr>
+               {%endfor%}
+          </tbody> 
+         </table>
+        </div> 
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+        </div>
+        </div>
+        </div> 
+        </div>
+        </div>
+
+
+
+        <div class="modal fade" id="myModal3">
+          <div class="modal-dialog  modal-lg">
+          <div class="modal-content">   
+          <!-- Modal Header -->
+          <div class="modal-header">
+          <h1 class="modal-title">FINANZAS</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>   
+          <!-- Modal body -->
+
+          <div class="col-lg-4 mb-3">   
+              <h2 class=" text-center text-primary">INFORMACION FINANCIERA</h2>
+              <table class="table-bordered border-primary m-auto ">
+              <thead class=" text-center ">  
+              <tr>
+                  <th>Item</th>
+                  <th>Informacion financiera</th>
+                  <th>Total al momento</th>          
+              </tr>
+              </thead> 
+              <tbody>
+              <tr>
+                <td class="text-center">1</td>
+                <td>aporta de los asociados </td>
+                <td>{{diario[2]}}RD$</td>
+             </tr>
+             <tr>
+                <td class="text-center">2</td>
+                <td>ingresos por otras actividades </td>
+                <td> {{diario[4]}}RD$</td>
+             </tr>
+             <tr>
+              <td class="text-center">3</td>
+              <td>Prestamos a los asociados </td>
+              <td>{{diario[1]}}RD$</td>
+            </tr>
+             <tr>
+                <td class="text-center">4</td>
+                <td> abonos a prestamos </td>
+                <td>{{diario[6]}}RD$</td>
+             </tr>
+             <tr>
+                <td class="text-center">5</td>
+                <td>cuotas no pagadas </td>
+                <td>{{diario[5]}}RD$</td>
+             </tr>
+             <tr>
+                <td class="text-center">6</td>
+                <td> gastos incurridos de parada </td>
+                <td>{{diario[3]}}RD$</td>
+             </tr>
+             <tr>
+             <td class="text-center">7</td>
+              <td>Balance General</td>
+             <td>{{diario[0]}}RD$</td>
+             </tr>
+             <tr>
+             <td class="text-center">8</td>
+                <td>balance bancario </td>
+             <td>{{diario[7]}}RD$</td>
+             </tr>
+          </tbody>   
+          </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+        </div>
+        </div>
+        </div> 
+
+        <div class="modal fade" id="myModal4">
+          <div class="modal-dialog  modal-lg">
+          <div class="modal-content">   
+          <!-- Modal Header -->
+          <div class="modal-header">
+          <h1 class="modal-title">Historial</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>   
+          <!-- Modal body -->
+
+          <div class="col-lg-4 mb-3">   
+             <h2 class=" text-center text-primary">Historial de Aportes y Pendientes</h2>
+          <table class="table-bordered border-primary m-auto">
+          <thead class="text-center">  
           <tr>
-              <th>Item</th>
-              <th>Informacion financiera</th>
-              <th>Total al momento</th>          
-          </tr>
+            <th> asociado</th>
+            <th>cuotas</th>
+            <th>pagadas</th>
+            <th>Pendientes</th>
+            <th>pagos(%)</th>
+          </tr> 
+        <tbody>           
+          {% for usuario in cuotas_hist %}
           <tr>
-            <tD>1</tD>
-            <td>aporta de los asociados :</td>
-            <td>{{diario[2]}}RD$</td>
-         </tr>
-         <tr>
-            <tD>2</tD>
-            <td>ingresos por otras actividades :</td>
-            <td> {{diario[4]}}RD$</td>
-         </tr>
-         <tr>
-          <tD>3</tD>
-          <td>Prestamos a los asociados :</td>
-          <td>{{diario[1]}}RD$</td>
-        </tr>
-         <tr>
-            <tD>4</tD>
-            <td> abonos a prestamos :</td>
-            <td>{{diario[6]}}RD$</td>
-         </tr>
-         <tr>
-            <tD>5</tD>
-            <td>cuotas no pagadas :</td>
-            <td>{{diario[5]}}RD$</td>
-         </tr>
-         <tr>
-            <tD>6</tD>
-            <td> gastos incurridos de parada :</td>
-            <td>{{diario[3]}}RD$</td>
-         </tr>
-         <tr>
-         <tD>7</tD>
-          <td>Balance General:</td>
-         <td>{{diario[0]}}RD$</td>
-         </tr>
-         <tr>
-         <tD>8</tD>
-            <td>balance bancario :</td>
-         <td>{{diario[7]}}RD$</td>
-         </tr>
+            <td>{{usuario[0]}}</td>
+            <td>{{usuario[3]}}</td>
+            <td>{{usuario[1]}}</td>
+            <td>{{usuario[2]}}</td>
+            <td>{{usuario[4]}}%</td>
+          </tr>  
+          {%endfor%}  
+        </tbody>             
         </table>
       </div>
-      <div class="col-lg-4 mb-3">   
-         <h1>Historial de Aportes y Pendientes</h1>
-         <table class="table-bordered border-primary w-100">
-      <tr>
-        <th> asociado</th>
-        <th>cuotas</th>
-        <th>pagadas</th>
-        <th>Pendientes</th>
-        <th>pagos(%)</th>
-      </tr>             
-      {% for usuario in cuotas_hist %}
-      <tr>
-        <td>{{usuario[0]}}</td>
-        <td>{{usuario[3]}}</td>
-        <td>{{usuario[1]}}</td>
-        <td>{{usuario[2]}}</td>
-        <td>{{usuario[4]}}%</td>
-      </tr>  
-      {%endfor%}             
-      </table>
-  </div>
-  <div class="col-lg-4 bg-info ps-4 text-dark mb-3 offset-1">       
-    <h1>INFORMACION DE LA PARADA</h1>  
-    <ol class="list-group text-dark">    
-    <li>
-    <label for="parada"class="label float-start  ">
-    <em>Nombre:</em>  
-    <input class="input border-0 bg-info text-dark" type="text" value={{datos[1]}} id="parada" readonly border-0>
-    </label>
-    </li>
-    <li>
-    <label for="direccion" class="label float-start">
-    <em>Direccion:</em> 
-    <input class="input border-0 bg-info text-dark " type="text"  value={{datos[2]}} id="direccion" readonly>
-    </label>
-    </li>
-    <li>
-    <label for="municipio"class="label float-start">
-    <em>Municipio:</em>  
-    <input class="input border-0 bg-info text-dark " type="text" value={{datos[3]}} id="municipio" readonly>
-    </label>
-    </li>
-    <li>
-    <label for="provincia"class="label float-start">
-    <em>Provincia:</em>  
-    <input class="input border-0 bg-info text-dark" type="text" value={{datos[4]}} id="provincia" readonly>
-    </label>
-    </li>
-    <li>
-    <label for="zona"class="label float-start">
-    <em>Zona :</em>   
-    <input class="input border-0 bg-info text-dark" type="text" value={{datos[5]}} id="zona" readonly>
-    </label>
-    </li>
-    <li>
-    <label for="aporte"class="label float-start">
-    <em>Aporte :</em> 
-    <input class="input border-0 bg-info text-dark" type="text" value={{datos[6]}}RD$/{{datos[7]}} id="aporte" readonly>
-    </label>
-    </li>    
-    <li>
-    <label for="press"class="label float-start">
-    <em>presidente:</em>
-    <input class="input border-0 bg-info text-dark" type="text" value={{cabecera[1]}} id="press" readonly>
-    </label>
-    </li>
-    <li>
-    <label for="federado"class="label float-start">
-    <em>Pte. Feder.:</em>  
-    <input class="input border-0 bg-info text-dark" type="text" value={{datos[10]}} id="federado" readonly>
-    </label>
-    </li>
-    <li>
-    <label for="miemb"class="label float-start">
-    <em>Miembros:</em>  
-    <input class="input border-0 bg-info text-dark " type="text" value={{cabecera[0]}} id="miemb" readonly>
-    </label>
-    </li>
-    <li>
-    <label for="geo"class="label float-start">
-    <em>Geolocalizacion:</em>    
-    <input class="input border-0 bg-info text-dark"  value={{datos[11]}} id="geo" readonly>   
-    </label>
-    </li>
-    </ol>
-  </div>
-  {%endfor%}
-  <div class="col-lg-4 ">
-    <a class = "btn btn-lg btn-primary"  href="{{url_for('canal')}}" type="html" role="button">Canal MotoBen &raquo;</a>
+    <!-- Modal footer -->
+    <div class="modal-footer">
+    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+    </div>
+    </div>
+    </div>
+    </div> 
+
+    <div class="modal fade" id="myModal1">
+      <div class="modal-dialog  modal-lg">
+      <div class="modal-content">   
+      <!-- Modal Header -->
+      <div class="modal-header">
+      <h1 class="modal-title">INFORMACION GENERAL</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>   
+      <!-- Modal body -->
+      <div class="col-lg-4 bg-info text-white ps-4 text-dark mb-3 ">       
+        <h2 class="text-center text-white">INFORMACION DE LA PARADA</h2>  
+        <ol class="list-group text-white">    
+        <li>
+        <label for="parada"class="label float-start  ">
+        <em>Nombre:</em>  
+        <input class="input border-0 bg-info text-white" type="text" value={{datos[1]}} id="parada" readonly border-0>
+        </label>
+        </li>
+        <li>
+        <label for="direccion" class="label float-start">
+        <em>Direccion:</em> 
+        <input class="input border-0 bg-info text-white " type="text"  value={{datos[2]}} id="direccion" readonly>
+        </label>
+        </li>
+        <li>
+        <label for="municipio"class="label float-start">
+        <em>Municipio:</em>  
+        <input class="input border-0 bg-info text-white " type="text" value={{datos[3]}} id="municipio" readonly>
+        </label>
+        </li>
+        <li>
+        <label for="provincia"class="label float-start">
+        <em>Provincia:</em>  
+        <input class="input border-0 bg-info text-white" type="text" value={{datos[4]}} id="provincia" readonly>
+        </label>
+        </li>
+        <li>
+        <label for="zona"class="label float-start">
+        <em>Zona :</em>   
+        <input class="input border-0 bg-info text-white" type="text" value={{datos[5]}} id="zona" readonly>
+        </label>
+        </li>
+        <li>
+        <label for="aporte"class="label float-start">
+        <em>Aporte :</em> 
+        <input class="input border-0 bg-info text-white" type="text" value={{datos[6]}}RD$/{{datos[7]}} id="aporte" readonly>
+        </label>
+        </li>    
+        <li>
+        <label for="press"class="label float-start">
+        <em>presidente:</em>
+        <input class="input border-0 bg-info text-white" type="text" value={{cabecera[1]}} id="press" readonly>
+        </label>
+        </li>
+        <li>
+        <label for="federado"class="label float-start">
+        <em>Pte. Feder.:</em>  
+        <input class="input border-0 bg-info text-white" type="text" value={{datos[10]}} id="federado" readonly>
+        </label>
+        </li>
+        <li>
+        <label for="miemb"class="label float-start">
+        <em>Miembros:</em>  
+        <input class="input border-0 bg-info text-white " type="text" value={{cabecera[0]}} id="miemb" readonly>
+        </label>
+        </li>
+        <li>
+        <label for="geo"class="label float-start">
+        <em>Geolocalizacion:</em>    
+        <input class="input border-0 bg-info text-white"  value={{datos[11]}} id="geo" readonly>   
+        </label>
+        </li>
+        </ol>
+      </div>
+      {%endfor%}
+    <!-- Modal footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+      </div>
+      </div>
+      </div> 
   </div>
   </div>
   </main>

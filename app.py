@@ -33,17 +33,21 @@ def verificador():
    msg = ''   
    if request.method == 'POST':        
     password = request.form['password'] 
-    print(password)
     cur =connection.cursor()
     paradas=funciones.vef_cedula_federado(cur,password) 
     if paradas!= []: 
-            parada=[]                                                                      
+            parada=[] 
+            limites=[]                                                                     
             fecha = datetime.strftime(datetime.now(),"%Y %m %d - %H")            
             informacion = funciones.info_parada(cur,parada)               
             diario = funciones.diario_general(cur,parada)  
             cuotas_hist = funciones.pendiente_aport(cur,parada)
-            cur.close()            
-            return render_template('index.html',informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas ,password=password)   
+            cur.close()  
+            if password=='intrant' :
+                limites='Tiene Acceso a todas las paradas del pais' 
+            else:
+                limites=f'Tiene Acceso a todas las paradas del municipio de {password}'             
+            return render_template('index.html',informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas ,password=password,limites=limites)   
           
     else:
         msg = 'su password no esta registrado!'        
@@ -56,7 +60,8 @@ def seleccion():
    msg = ''   
    if request.method == 'POST':        
         parada = request.form['selector']
-        password = request.form['password']   
+        password = request.form['password'] 
+        limites = request.form['acceso']  
         cur =connection.cursor() 
         if parada!= []:
             if password == 'intrant': 
@@ -66,9 +71,9 @@ def seleccion():
                 miembros=funciones.lista_miembros(cur,parada)              
                 diario = funciones.diario_general(cur,parada)
                 cuotas_hist = funciones.pendiente_aport(cur,parada)
-                cabecera=funciones.info_cabecera(cur,parada)
+                cabecera=funciones.info_cabecera(cur,parada)             
                 cur.close()            
-                return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password)  
+                return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password,limites=limites)  
             else:
                 paradas=funciones.vef_cedula_federado(cur,password)                                                                           
                 fecha = datetime.strftime(datetime.now(),"%Y %m %d - %H")            
@@ -78,7 +83,7 @@ def seleccion():
                 cuotas_hist = funciones.pendiente_aport(cur,parada)
                 cabecera=funciones.info_cabecera(cur,parada)
                 cur.close()            
-                return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password)                
+                return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password,limites=limites)                
         else:
             msg = 'su password no esta registrado!'        
             flash(msg)           

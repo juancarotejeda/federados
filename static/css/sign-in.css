@@ -1,10 +1,5 @@
-html,
-body {
-  height: 100%;
-  background: url(/static/imagenes/paya-nocturna.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-}
+
+
 
 .form-signin {
   max-width: 330px;
