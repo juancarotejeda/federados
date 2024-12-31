@@ -228,7 +228,7 @@
   </div>
  
   <div class="modal fade" id="myModal2">
-    <div class="modal-dialog  modal-lg">
+    <div class="modal-dialog ">
     <div class="modal-content">   
     <!-- Modal Header -->
     <div class="modal-header">
@@ -236,20 +236,33 @@
     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
     </div>   
     <!-- Modal body -->
+    {%for datos in informacion %}
+    <form action="/listado_pdf" method="POST">
+      <input type="hidden" value="Lista de Miembros" name="titu">
+      <input type="hidden" value={{datos[1]}} name="para">
+      <input type="hidden"  value={{datos[2]}} name="dirr" >
+      <input type="hidden" value={{datos[3]}} name="muni" >
+      <input type="hidden" value={{datos[4]}} name="prov">
+      <input type="hidden" value={{datos[5]}} name="zona">
+      <input  type="hidden" value={{cabecera[0]}} name="miem" >
+      <input type="hidden" value={{datos[6]}}RD$/{{datos[7]}} name="apor">
+      <input type="hidden" value={{cabecera[1]}} name="prep">
+      <input type="hidden" value={{datos[10]}} name="pref">
+      <input type="hidden" value={{datos[11]}} name="geol">  
     <div class="modal-body ">
-      {%for datos in informacion %}
-      <div class="col-lg-4 mb-3">
-        <h2 class=" text-center text-primary">Miembros Registrado</h2>
-        <table class="table-bordered border-primary m-auto">
-        <thead class=" text-center">  
-               <tr>
-                  <th>Item</th>
-                  <th>Nombre del asociado</th>
-                  <th>Cedula</th>
-                  <th>Telefono</th>
-                  <th>Funcion</th>
-               </tr>
-        </thead>
+      
+    <div class="col-lg-4 mb-3">
+      <h2 class=" text-center text-primary">Miembros Registrado</h2>
+      <table class="table-bordered border-primary m-auto">
+      <thead class=" text-center">  
+        <tr>
+          <th>Item</th>
+          <th>Nombre del asociado</th>
+          <th>Cedula</th>
+          <th>Telefono</th>
+          <th>Funcion</th>
+        </tr>
+      </thead>
           <tbody>     
                {% for usuario in miembros %}
                <tr>
@@ -264,18 +277,18 @@
          </table>
         </div> 
         <div class="modal-footer">
+          <button type="submit" class="btn btn-success" >Crear pdf</button>
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
         </div>
         </div>
+        </form>
         </div>
         </div> 
         </div>
         </div>
 
-
-
         <div class="modal fade" id="myModal3">
-          <div class="modal-dialog  modal-lg">
+          <div class="modal-dialog ">
           <div class="modal-content">   
           <!-- Modal Header -->
           <div class="modal-header">
@@ -283,6 +296,18 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>   
           <!-- Modal body -->
+          <form action="/finanzas_pdf" method="POST">
+            <input type="hidden" value="Diario General" name="titu">
+            <input type="hidden" value={{datos[1]}} name="para">
+            <input type="hidden"  value={{datos[2]}} name="dirr" >
+            <input type="hidden" value={{datos[3]}} name="muni" >
+            <input type="hidden" value={{datos[4]}} name="prov">
+            <input type="hidden" value={{datos[5]}} name="zona">
+            <input  type="hidden" value={{cabecera[0]}} name="miem" >
+            <input type="hidden" value={{datos[6]}}RD$/{{datos[7]}} name="apor">
+            <input type="hidden" value={{cabecera[1]}} name="prep">
+            <input type="hidden" value={{datos[10]}} name="pref">
+            <input type="hidden" value={{datos[11]}} name="geol">  
 
           <div class="col-lg-4 mb-3">   
               <h2 class=" text-center text-primary">INFORMACION FINANCIERA</h2>
@@ -339,14 +364,16 @@
           </table>
           </div>
           <div class="modal-footer">
+            <button type="submit" class="btn btn-success" >Crear pdf</button>
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
         </div>
+        </form>
         </div>
         </div>
         </div> 
 
         <div class="modal fade" id="myModal4">
-          <div class="modal-dialog  modal-lg">
+          <div class="modal-dialog ">
           <div class="modal-content">   
           <!-- Modal Header -->
           <div class="modal-header">
@@ -354,7 +381,19 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>   
           <!-- Modal body -->
-
+          <form action="/miembros_pdf" method="POST">
+          <input type="hidden" value="Historial de Aportes" name="titu">
+          <input type="hidden" value={{datos[1]}} name="para">
+          <input type="hidden"  value={{datos[2]}} name="dirr" >
+          <input type="hidden" value={{datos[3]}} name="muni" >
+          <input type="hidden" value={{datos[4]}} name="prov">
+          <input type="hidden" value={{datos[5]}} name="zona">
+          <input  type="hidden" value={{cabecera[0]}} name="miem" >
+          <input type="hidden" value={{datos[6]}}RD$/{{datos[7]}} name="apor">
+          <input type="hidden" value={{cabecera[1]}} name="prep">
+          <input type="hidden" value={{datos[10]}} name="pref">
+          <input type="hidden" value={{datos[11]}} name="geol"> 
+         
           <div class="col-lg-4 mb-3">   
              <h2 class=" text-center text-primary">Historial de Aportes y Pendientes</h2>
           <table class="table-bordered border-primary m-auto">
@@ -381,82 +420,86 @@
       </div>
     <!-- Modal footer -->
     <div class="modal-footer">
+    <button type="submit" class="btn btn-success" >Crear pdf</button>  
     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
     </div>
+    </form>
     </div>
     </div>
     </div> 
 
     <div class="modal fade" id="myModal1">
-      <div class="modal-dialog  modal-lg">
-      <div class="modal-content">   
+      <div class="modal-dialog ">
+      <div class="modal-content">
+      <form action="/crear_pdf" method="POST">     
       <!-- Modal Header -->
-      <div class="modal-header">
+      <div class="modal-header">  
       <h1 class="modal-title">INFORMACION GENERAL</h1>
       <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>   
       <!-- Modal body -->
       <div class="col-lg-4 bg-info text-white ps-4 text-dark mb-3 ">       
         <h2 class="text-center text-white">INFORMACION DE LA PARADA</h2>  
+        <input type="hidden" value="INFORMACION DE LA PARADA" name="titu">
         <ol class="list-group text-white">    
         <li>
-        <label for="parada"class="label float-start  ">
-        <em>Nombre:</em>  
-        <input class="input border-0 bg-info text-white" type="text" value={{datos[1]}} id="parada" readonly border-0>
+        <label for=""class="label float-start  ">
+        <em>Nombre: {{datos[1]}}</em>  
+        <input type="hidden" value={{datos[1]}} name="para">
         </label>
         </li>
         <li>
-        <label for="direccion" class="label float-start">
-        <em>Direccion:</em> 
-        <input class="input border-0 bg-info text-white " type="text"  value={{datos[2]}} id="direccion" readonly>
+        <label for="" class="label float-start">
+        <em>Direccion: {{datos[2]}}</em> 
+        <input type="hidden"  value={{datos[2]}} name="dirr" >
         </label>
         </li>
         <li>
-        <label for="municipio"class="label float-start">
-        <em>Municipio:</em>  
-        <input class="input border-0 bg-info text-white " type="text" value={{datos[3]}} id="municipio" readonly>
+        <label for=""class="label float-start">
+        <em>Municipio: {{datos[3]}}</em>  
+        <input type="hidden" value={{datos[3]}} name="muni" >
         </label>
         </li>
         <li>
-        <label for="provincia"class="label float-start">
-        <em>Provincia:</em>  
-        <input class="input border-0 bg-info text-white" type="text" value={{datos[4]}} id="provincia" readonly>
+        <label for=""class="label float-start">
+        <em>Provincia: {{datos[4]}}</em>  
+        <input type="hidden" value={{datos[4]}} name="prov">
         </label>
         </li>
         <li>
         <label for="zona"class="label float-start">
-        <em>Zona :</em>   
-        <input class="input border-0 bg-info text-white" type="text" value={{datos[5]}} id="zona" readonly>
+        <em>Zona : {{datos[5]}}</em>   
+        <input type="hidden" value={{datos[5]}} name="zona">
         </label>
         </li>
         <li>
-        <label for="aporte"class="label float-start">
-        <em>Aporte :</em> 
-        <input class="input border-0 bg-info text-white" type="text" value={{datos[6]}}RD$/{{datos[7]}} id="aporte" readonly>
+        <label for=""class="label float-start">
+        <em>Aporte : {{datos[6]}}RD$/{{datos[7]}}</em> 
+        <input type="hidden" value={{datos[6]}}RD$/{{datos[7]}} name="apor">
         </label>
         </li>    
         <li>
-        <label for="press"class="label float-start">
-        <em>presidente:</em>
-        <input class="input border-0 bg-info text-white" type="text" value={{cabecera[1]}} id="press" readonly>
+        <label for=""class="label float-start">
+        <em>presidente parada: {{cabecera[1]}} </em>
+        <input type="hidden" value={{cabecera[1]}} name="prep">
         </label>
         </li>
         <li>
-        <label for="federado"class="label float-start">
-        <em>Pte. Feder.:</em>  
-        <input class="input border-0 bg-info text-white" type="text" value={{datos[10]}} id="federado" readonly>
+        <label for=""class="label float-start">
+        <em>Pte. Federacion: {{datos[10]}}</em>  
+        <input type="hidden" value={{datos[10]}} name="pref">
         </label>
         </li>
         <li>
-        <label for="miemb"class="label float-start">
-        <em>Miembros:</em>  
-        <input class="input border-0 bg-info text-white " type="text" value={{cabecera[0]}} id="miemb" readonly>
+        <label for=""class="label float-start">
+        <em>Miembros: {{cabecera[0]}}</em>  
+        <input  type="hidden" value={{cabecera[0]}} name="miem" >
         </label>
         </li>
         <li>
-        <label for="geo"class="label float-start">
-        <em>Geolocalizacion:</em>    
-        <input class="input border-0 bg-info text-white"  value={{datos[11]}} id="geo" readonly>   
+        <label for=""class="label float-start">
+        <em>Geolocalizacion: {{datos[11]}}</em>    
+        <input type="hidden" value={{datos[11]}} name="geol">   
         </label>
         </li>
         </ol>
@@ -464,8 +507,10 @@
       {%endfor%}
     <!-- Modal footer -->
     <div class="modal-footer">
+      <button type="submit" class="btn btn-success"  value="Crear pdf" >
       <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
       </div>
+      </form>
       </div>
       </div>
       </div> 

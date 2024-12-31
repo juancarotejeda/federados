@@ -1,4 +1,4 @@
-import funciones,os,db,mysql.connector
+import funciones,os,mysql.connector
 from flask import Flask, render_template,flash, request,  redirect, url_for
 from datetime import datetime
 from dotenv import load_dotenv
@@ -71,7 +71,7 @@ def seleccion():
                 miembros=funciones.lista_miembros(cur,parada)              
                 diario = funciones.diario_general(cur,parada)
                 cuotas_hist = funciones.pendiente_aport(cur,parada)
-                cabecera=funciones.info_cabecera(cur,parada)             
+                cabecera=funciones.info_cabecera(cur,parada)            
                 cur.close()            
                 return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password,limites=limites)  
             else:
@@ -88,18 +88,94 @@ def seleccion():
             msg = 'su password no esta registrado!'        
             flash(msg)           
             return redirect(url_for('login'))      
-         
+        
+@app.route('/crear_pdf',methods=['GUEST','POST']) 
+def crear_pdf() :
+       if request.method == 'POST': 
+          titulo = request.form['titu']        
+          parada = request.form['para']
+          direccion=request.form['dirr']
+          municipio=request.form['muni']
+          provincia=request.form['prov']
+          region=request.form['zona']
+          aporte=request.form['apor']
+          pre_p=request.form['prep']
+          pre_f=request.form['pref'] 
+          miembros=request.form['miem'] 
+          geolocalizacion=request.form['geol']   
+          fecha = datetime.strftime(datetime.now(),"%Y %m %d") 
+          cur =connection.cursor()  
+          cuotas_hist = funciones.pendiente_aport(cur,parada) 
+          cur.close()     
+          pdf=funciones.imprimir(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuotas_hist )
+          return render_template('imprimir.html',pdf=pdf)    
+                 
+          
+        
+@app.route("/miembros_pdf",methods=['GUEST','POST'])
+def miembros_pdf():  
+    if request.method == 'POST': 
+        titulo = request.form['titu']        
+        parada = request.form['para']
+        direccion=request.form['dirr']
+        municipio=request.form['muni']
+        provincia=request.form['prov']
+        region=request.form['zona']
+        aporte=request.form['apor']
+        pre_p=request.form['prep']
+        pre_f=request.form['pref'] 
+        miembros=request.form['miem'] 
+        geolocalizacion=request.form['geol']   
+        fecha = datetime.strftime(datetime.now(),"%Y %m %d") 
+        cur =connection.cursor()  
+        cuotas_hist = funciones.pendiente_aport(cur,parada) 
+        cur.close()     
+        pdf=funciones.imprimir_lista(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuotas_hist )
+        return render_template('imprimir.html',pdf=pdf)   
 
-    
-            
-@app.route("/canal")
-def canal():
-    return render_template('canal_motoben.html')
+
+@app.route("/finanzas_pdf",methods=['GUEST','POST'])
+def finanzas_pdf():  
+    if request.method == 'POST': 
+        titulo = request.form['titu']        
+        parada = request.form['para']
+        direccion=request.form['dirr']
+        municipio=request.form['muni']
+        provincia=request.form['prov']
+        region=request.form['zona']
+        aporte=request.form['apor']
+        pre_p=request.form['prep']
+        pre_f=request.form['pref'] 
+        miembros=request.form['miem'] 
+        geolocalizacion=request.form['geol']   
+        fecha = datetime.strftime(datetime.now(),"%Y %m %d")
+        cur =connection.cursor()
+        diario = funciones.diario_general_pdf(cur,parada)
+        cur.close()
+        pdf=funciones.imprimir_finanzas(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,diario )
+        return render_template('imprimir.html',pdf=pdf) 
 
 
-
-
-
+@app.route("/listado_pdf",methods=['GUEST','POST'])
+def listado_pdf():  
+    if request.method == 'POST': 
+        titulo = request.form['titu']        
+        parada = request.form['para']
+        direccion=request.form['dirr']
+        municipio=request.form['muni']
+        provincia=request.form['prov']
+        region=request.form['zona']
+        aporte=request.form['apor']
+        pre_p=request.form['prep']
+        pre_f=request.form['pref'] 
+        cantidad=request.form['miem'] 
+        geolocalizacion=request.form['geol']   
+        fecha = datetime.strftime(datetime.now(),"%Y %m %d") 
+        cur =connection.cursor()  
+        miembros=funciones.lista_miembros(cur,parada)         
+        pdf=funciones.imprimir_miembros(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,cantidad,titulo,miembros )
+        print(pdf)
+        return render_template('imprimir.html',pdf=pdf)  
 
 
 
