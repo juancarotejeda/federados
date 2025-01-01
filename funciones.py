@@ -224,7 +224,7 @@ def vef_cedula_federado(cur,password):
 
    
        
-def imprimir(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo):
+def imprimir_info(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuota,region,geolocalizacion):
         os.makedirs(f'static/pdf/pdf_{parada}', exist_ok=True)
         pdf = FPDF()
         pdf = FPDF(orientation='P',unit='mm',format='Letter')
@@ -234,7 +234,7 @@ def imprimir(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,tit
         pdf.set_xy(50.0, 8.0)
         pdf.cell(ln=0, h=22.0, align='C', w=75.0, txt=f'{titulo}', border=0)
         pdf.set_line_width(0.0)
-        pdf.image('static/imagenes/logo-motoben.jpg', 20.0, 17.0, link='href=/static/imagenes/logo-motoben.jpg', type='jpg', w=30.0, h=30.0)
+        pdf.image('static/imagenes/logo-motoben.jpg', 20.0, 17.0, link='', type='', w=30.0, h=30.0)
         pdf.set_font('arial', '', 8.0)
         pdf.set_xy(50.0, 21.0)
         pdf.cell(ln=0, h=4.0, align='C', w=75.0, txt='Original', border=0)
@@ -275,31 +275,32 @@ def imprimir(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,tit
         pdf.set_xy(45.0, 74.0)
         pdf.cell(ln=0, h=6.0, align='L', w=42.0, txt=f'{direccion}', border=0)    
         pdf.set_xy(17.0, 80.0)
-        pdf.cell(ln=0, h=5.0, align='L', w=15.0, txt='Provincia:', border=0)
+        pdf.cell(ln=0, h=5.0, align='L', w=15.0, txt='PROVINCIA:', border=0)
         pdf.set_xy(45.0, 80.0)
         pdf.cell(ln=0, h=5.0, align='L', w=70.0, txt=f'{provincia}', border=0)
-        pdf.set_xy(115.0, 80.0)
-        pdf.cell(ln=0, h=5.0, align='L', w=20.0, txt='Federacion:', border=0)
-        pdf.set_xy(135.0, 80.0)
+        pdf.set_xy(17.0, 85.0)
+        pdf.cell(ln=0, h=5.0, align='L', w=20.0, txt='fEDERACION:', border=0)
+        pdf.set_xy(45.0, 85.0)
         pdf.cell(ln=0, h=5.0, align='L', w=40.0, txt=f'{pre_f}', border=0)
-        pdf.set_line_width(0.0)
-        pdf.line(15.0, 88.0, 185.0, 88.0)
         pdf.set_xy(17.0, 90.0)
-        pdf.cell(ln=0, h=5.0, align='L', w=48.0, txt='Numero de miembros:', border=0)
-        pdf.set_xy(65.0, 90.0)
-        pdf.cell(ln=0, h=5.0, align='L', w=20.0, txt=f'{miembros}', border=0)
-        pdf.set_xy(92.0, 90.0)
-        pdf.cell(ln=0, h=5.0, align='L', w=43.0, txt='Per\xedodo Facturado', border=0)
-        pdf.set_xy(125.0, 90.0)
-        pdf.cell(ln=0, h=5.0, align='L', w=20.0, txt=f'{fecha}', border=0)
-        pdf.set_xy(150.0, 90.0)
-        pdf.cell(ln=0, h=5.0, align='L', w=20.0, txt='', border=0)
-        pdf.set_line_width(0.0)
-        pdf.line(15.0, 95.0, 185.0, 95.0)
-        pdf.set_line_width(0.0)
-        pdf.line(155.0, 95.0, 155.0, 100.0)       
-        pdf.output(f"static/pdf/factura_{parada}/informacion.pdf", 'F')    
-        return  str(f"static/pdf/factura_{parada}/informacion.pdf")
+        pdf.cell(ln=0, h=5.0, align='L', w=48.0, txt='MIEMBROS:', border=0)
+        pdf.set_xy(45.0, 90.0)
+        pdf.cell(ln=0, h=5.0, align='L', w=20.0, txt=f'{miembros}', border=0)       
+        pdf.set_xy(17.0, 95.0)
+        pdf.cell(ln=0, h=5.0, align='L', w=48.0, txt='CUOTAS:', border=0)
+        pdf.set_xy(45.0, 95.0)
+        pdf.cell(ln=0, h=5.0, align='L', w=20.0, txt=f'{cuota}', border=0)
+        pdf.set_xy(17.0, 100.0)
+        pdf.cell(ln=0, h=5.0, align='L', w=48.0, txt='REGION:', border=0)
+        pdf.set_xy(45.0, 100.0)
+        pdf.cell(ln=0, h=5.0, align='L', w=20.0, txt=f'{region}', border=0)       
+        pdf.set_xy(17.0, 105.0)
+        pdf.cell(ln=0, h=5.0, align='L', w=48.0, txt='GEOLUGAR:', border=0)
+        pdf.set_xy(45.0, 105.0)
+        pdf.cell(ln=0, h=5.0, align='L', w=20.0, txt=f'{geolocalizacion}', border=0)  
+                  
+        pdf.output(f"static/pdf/pdf_{parada}/informacion_{fecha}.pdf", 'F')    
+
     
 
 
@@ -313,7 +314,7 @@ def imprimir_finanzas(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,mie
         pdf.set_xy(50.0, 8.0)
         pdf.cell(ln=0, h=22.0, align='C', w=75.0, txt=f'{titulo}', border=0)
         pdf.set_line_width(0.0)
-        pdf.image('static/imagenes/logo-motoben.jpg', 20.0, 17.0, link='href=/static/imagenes/logo-motoben.jpg', type='jpg', w=30.0, h=30.0)
+        pdf.image('static/imagenes/logo-motoben.jpg', 20.0, 17.0, link='', type='', w=30.0, h=30.0)
         pdf.set_font('arial', '', 8.0)
         pdf.set_xy(50.0, 21.0)
         pdf.cell(ln=0, h=4.0, align='C', w=75.0, txt='Original', border=0)
@@ -385,8 +386,8 @@ def imprimir_finanzas(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,mie
                 pdf.cell(w=35.0,h= 10.0, txt=(valor[0]),border=1,ln=0,align='C',fill=0)
                 pdf.cell(w=90.0, h=10.0,txt=str(valor[1]),border=1,ln=0,align='L',fill=0)
                 pdf.multi_cell(w=45.0, h=10.0,txt=str(valor[2]),border=1,align='C',fill=0)            
-        pdf.output(f"static/pdf/pdf_{parada}/finanzas.pdf", 'F')    
-        return  str(f"static/pdf/pdf_{parada}/finanzas.pdf")
+        pdf.output(f"static/pdf/pdf_{parada}/finanzas_{fecha}.pdf", 'F')    
+
 
 
 def imprimir_lista(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuotas_hist):
@@ -399,7 +400,7 @@ def imprimir_lista(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembr
     pdf.set_xy(50.0, 8.0)
     pdf.cell(ln=0, h=22.0, align='C', w=75.0, txt=f'{titulo}', border=0)
     pdf.set_line_width(0.0)
-    pdf.image('static/imagenes/logo-motoben.jpg', 20.0, 17.0, link='href=/static/imagenes/logo-motoben.jpg', type='jpg', w=30.0, h=30.0)
+    pdf.image('static/imagenes/logo-motoben.jpg', 20.0, 17.0, link='', type='', w=30.0, h=30.0)
     pdf.set_font('arial', '', 8.0)
     pdf.set_xy(50.0, 21.0)
     pdf.cell(ln=0, h=4.0, align='C', w=75.0, txt='Original', border=0)
@@ -475,8 +476,8 @@ def imprimir_lista(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembr
             pdf.cell(w=25.0, h=10.0,txt=str(valor[2]),border=1,ln=0,align='C',fill=0)
             pdf.cell(w=25.0, h=10.0,txt=str(valor[3]),border=1,ln=0,align='C',fill=0)
             pdf.multi_cell(w=25.0, h=10.0,txt=str(valor[4]),border=1,align='C',fill=0)            
-    pdf.output(f"static/pdf/pdf_{parada}/historial.pdf", 'F')    
-    return  str(f"static/pdf/pdf_{parada}/historial.pdf")
+    pdf.output(f"static/pdf/pdf_{parada}/historial_{fecha}.pdf", 'F')    
+  
 
 
    
@@ -490,7 +491,7 @@ def imprimir_miembros(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,can
         pdf.set_xy(50.0, 8.0)
         pdf.cell(ln=0, h=22.0, align='C', w=75.0, txt=f'{titulo}', border=0)
         pdf.set_line_width(0.0)
-        pdf.image('static/imagenes/logo-motoben.jpg', 20.0, 17.0, link='href=/static/imagenes/logo-motoben.jpg', type='jpg', w=30.0, h=30.0)
+        pdf.image('static/imagenes/logo-motoben.jpg', 20.0, 17.0, link='', type='', w=30.0, h=30.0)
         pdf.set_font('arial', '', 8.0)
         pdf.set_xy(50.0, 21.0)
         pdf.cell(ln=0, h=4.0, align='C', w=75.0, txt='Original', border=0)
@@ -566,6 +567,5 @@ def imprimir_miembros(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,can
                 pdf.cell(w=30.0, h=10.0,txt=str(valor[2]),border=1,ln=0,align='C',fill=0)
                 pdf.cell(w=30.0, h=10.0,txt=str(valor[3]),border=1,ln=0,align='C',fill=0)
                 pdf.multi_cell(w=30.0, h=10.0,txt=str(valor[4]),border=1,align='C',fill=0)                  
-        pdf.output(f"static/pdf/pdf_{parada}/listado.pdf",'F')   
-        return  f"static/pdf/pdf_{parada}/listado.pdf"
-        
+        pdf.output(f"static/pdf/pdf_{parada}/listado_{fecha}.pdf",'F')   
+        return

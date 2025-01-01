@@ -239,16 +239,16 @@
     {%for datos in informacion %}
     <form action="/listado_pdf" method="POST">
       <input type="hidden" value="Lista de Miembros" name="titu">
-      <input type="hidden" value={{datos[1]}} name="para">
-      <input type="hidden"  value={{datos[2]}} name="dirr" >
-      <input type="hidden" value={{datos[3]}} name="muni" >
-      <input type="hidden" value={{datos[4]}} name="prov">
-      <input type="hidden" value={{datos[5]}} name="zona">
-      <input  type="hidden" value={{cabecera[0]}} name="miem" >
-      <input type="hidden" value={{datos[6]}}RD$/{{datos[7]}} name="apor">
-      <input type="hidden" value={{cabecera[1]}} name="prep">
-      <input type="hidden" value={{datos[10]}} name="pref">
-      <input type="hidden" value={{datos[11]}} name="geol">  
+      <input type="hidden" value='{{datos[1]}}' name="para">
+      <input type="hidden"  value='{{datos[2]}}' name="dirr" >
+      <input type="hidden" value='{{datos[3]}}' name="muni" >
+      <input type="hidden" value='{{datos[4]}}' name="prov">
+      <input type="hidden" value='{{datos[5]}}' name="zona">
+      <input  type="hidden" value='{{cabecera[0]}}' name="miem" >
+      <input type="hidden" value='{{datos[6]}}RD$/{{datos[7]}}' name="apor">
+      <input type="hidden" value='{{cabecera[1]}}' name="prep">
+      <input type="hidden" value='{{datos[10]}}' name="pref">
+      <input type="hidden" value='{{datos[11]}}' name="geol">  
     <div class="modal-body ">
       
     <div class="col-lg-4 mb-3">
@@ -298,16 +298,16 @@
           <!-- Modal body -->
           <form action="/finanzas_pdf" method="POST">
             <input type="hidden" value="Diario General" name="titu">
-            <input type="hidden" value={{datos[1]}} name="para">
-            <input type="hidden"  value={{datos[2]}} name="dirr" >
-            <input type="hidden" value={{datos[3]}} name="muni" >
-            <input type="hidden" value={{datos[4]}} name="prov">
-            <input type="hidden" value={{datos[5]}} name="zona">
-            <input  type="hidden" value={{cabecera[0]}} name="miem" >
-            <input type="hidden" value={{datos[6]}}RD$/{{datos[7]}} name="apor">
-            <input type="hidden" value={{cabecera[1]}} name="prep">
-            <input type="hidden" value={{datos[10]}} name="pref">
-            <input type="hidden" value={{datos[11]}} name="geol">  
+            <input type="hidden" value='{{datos[1]}}' name="para">
+            <input type="hidden"  value='{{datos[2]}}' name="dirr" >
+            <input type="hidden" value='{{datos[3]}}' name="muni" >
+            <input type="hidden" value='{{datos[4]}}' name="prov">
+            <input type="hidden" value='{{datos[5]}}' name="zona">
+            <input  type="hidden" value='{{cabecera[0]}}' name="miem" >
+            <input type="hidden" value='{{datos[6]}}RD$/{{datos[7]}}' name="apor">
+            <input type="hidden" value='{{cabecera[1]}}' name="prep">
+            <input type="hidden" value='{{datos[10]}}' name="pref">
+            <input type="hidden" value='{{datos[11]}}' name="geol">  
 
           <div class="col-lg-4 mb-3">   
               <h2 class=" text-center text-primary">INFORMACION FINANCIERA</h2>
@@ -383,16 +383,16 @@
           <!-- Modal body -->
           <form action="/miembros_pdf" method="POST">
           <input type="hidden" value="Historial de Aportes" name="titu">
-          <input type="hidden" value={{datos[1]}} name="para">
-          <input type="hidden"  value={{datos[2]}} name="dirr" >
-          <input type="hidden" value={{datos[3]}} name="muni" >
-          <input type="hidden" value={{datos[4]}} name="prov">
-          <input type="hidden" value={{datos[5]}} name="zona">
-          <input  type="hidden" value={{cabecera[0]}} name="miem" >
-          <input type="hidden" value={{datos[6]}}RD$/{{datos[7]}} name="apor">
-          <input type="hidden" value={{cabecera[1]}} name="prep">
-          <input type="hidden" value={{datos[10]}} name="pref">
-          <input type="hidden" value={{datos[11]}} name="geol"> 
+          <input type="hidden" value='{{datos[1]}}' name="para">
+          <input type="hidden"  value='{{datos[2]}}' name="dirr" >
+          <input type="hidden" value='{{datos[3]}}' name="muni" >
+          <input type="hidden" value='{{datos[4]}}' name="prov">
+          <input type="hidden" value='{{datos[5]}}' name="zona">
+          <input  type="hidden" value='{{cabecera[0]}}' name="miem" >
+          <input type="hidden" value='{{datos[6]}}RD$/{{datos[7]}}' name="apor">
+          <input type="hidden" value='{{cabecera[1]}}' name="prep">
+          <input type="hidden" value='{{datos[10]}}' name="pref">
+          <input type="hidden" value='{{datos[11]}}' name="geol"> 
          
           <div class="col-lg-4 mb-3">   
              <h2 class=" text-center text-primary">Historial de Aportes y Pendientes</h2>
@@ -431,7 +431,7 @@
     <div class="modal fade" id="myModal1">
       <div class="modal-dialog ">
       <div class="modal-content">
-      <form action="/crear_pdf" method="POST">     
+      <form action="/informacion_pdf" method="POST">     
       <!-- Modal Header -->
       <div class="modal-header">  
       <h1 class="modal-title">INFORMACION GENERAL</h1>
@@ -440,65 +440,65 @@
       <!-- Modal body -->
       <div class="col-lg-4 bg-info text-white ps-4 text-dark mb-3 ">       
         <h2 class="text-center text-white">INFORMACION DE LA PARADA</h2>  
-        <input type="hidden" value="INFORMACION DE LA PARADA" name="titu">
+        <input type="hidden" value="INFORMACION DE PARADAS" name="titu">
         <ol class="list-group text-white">    
         <li>
         <label for=""class="label float-start  ">
         <em>Nombre: {{datos[1]}}</em>  
-        <input type="hidden" value={{datos[1]}} name="para">
+        <input type="hidden" value="{{datos[1]}}" name="para">
         </label>
         </li>
         <li>
         <label for="" class="label float-start">
         <em>Direccion: {{datos[2]}}</em> 
-        <input type="hidden"  value={{datos[2]}} name="dirr" >
+        <input type="hidden"  value="{{datos[2]}}" name="dirr" >
         </label>
         </li>
         <li>
         <label for=""class="label float-start">
         <em>Municipio: {{datos[3]}}</em>  
-        <input type="hidden" value={{datos[3]}} name="muni" >
+        <input type="hidden" value="{{datos[3]}}" name="muni" >
         </label>
         </li>
         <li>
         <label for=""class="label float-start">
         <em>Provincia: {{datos[4]}}</em>  
-        <input type="hidden" value={{datos[4]}} name="prov">
+        <input type="hidden" value="{{datos[4]}}" name="prov">
         </label>
         </li>
         <li>
         <label for="zona"class="label float-start">
         <em>Zona : {{datos[5]}}</em>   
-        <input type="hidden" value={{datos[5]}} name="zona">
+        <input type="hidden" value="{{datos[5]}}" name="zona">
         </label>
         </li>
         <li>
         <label for=""class="label float-start">
         <em>Aporte : {{datos[6]}}RD$/{{datos[7]}}</em> 
-        <input type="hidden" value={{datos[6]}}RD$/{{datos[7]}} name="apor">
+        <input type="hidden" value="{{datos[6]}}RD$/{{datos[7]}}" name="apor">
         </label>
         </li>    
         <li>
         <label for=""class="label float-start">
         <em>presidente parada: {{cabecera[1]}} </em>
-        <input type="hidden" value={{cabecera[1]}} name="prep">
+        <input type="hidden" value="{{cabecera[1]}}" name="prep">
         </label>
         </li>
         <li>
         <label for=""class="label float-start">
         <em>Pte. Federacion: {{datos[10]}}</em>  
-        <input type="hidden" value={{datos[10]}} name="pref">
+        <input type="hidden" value="{{datos[10]}}" name="pref">
         </label>
         </li>
         <li>
         <label for=""class="label float-start">
         <em>Miembros: {{cabecera[0]}}</em>  
-        <input  type="hidden" value={{cabecera[0]}} name="miem" >
+        <input  type="hidden" value="{{cabecera[0]}}" name="miem" >
         </label>
         </li>
-        <li>
+        <li>  
         <label for=""class="label float-start">
-        <em>Geolocalizacion: {{datos[11]}}</em>    
+        <em>Geolocalizacion: "{{datos[11]}}"</em>    
         <input type="hidden" value={{datos[11]}} name="geol">   
         </label>
         </li>

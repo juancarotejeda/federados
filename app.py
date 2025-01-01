@@ -58,15 +58,16 @@ def verificador():
 @app.route("/seleccion", methods=["GUET","POST"])
 def seleccion(): 
    msg = ''   
-   if request.method == 'POST':        
+   if request.method == 'POST': 
+        global limites,password,paradas,fecha,informacion,miembros,diario,cuotas_hist,cabecera  
         parada = request.form['selector']
         password = request.form['password'] 
         limites = request.form['acceso']  
+        fecha = datetime.strftime(datetime.now(),"%Y %m %d - %H") 
         cur =connection.cursor() 
         if parada!= []:
             if password == 'intrant': 
-                paradas=funciones.vef_cedula_federado(cur,password)                                                                           
-                fecha = datetime.strftime(datetime.now(),"%Y %m %d - %H")            
+                paradas=funciones.vef_cedula_federado(cur,password)                                                                                      
                 informacion = funciones.info_parada(cur,parada) 
                 miembros=funciones.lista_miembros(cur,parada)              
                 diario = funciones.diario_general(cur,parada)
@@ -75,8 +76,7 @@ def seleccion():
                 cur.close()            
                 return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password,limites=limites)  
             else:
-                paradas=funciones.vef_cedula_federado(cur,password)                                                                           
-                fecha = datetime.strftime(datetime.now(),"%Y %m %d - %H")            
+                paradas=funciones.vef_cedula_federado(cur,password)                                                                                      
                 informacion = funciones.info_parada(cur,parada)  
                 miembros=funciones.lista_miembros(cur,parada)             
                 diario = funciones.diario_general(cur,parada)
@@ -89,8 +89,8 @@ def seleccion():
             flash(msg)           
             return redirect(url_for('login'))      
         
-@app.route('/crear_pdf',methods=['GUEST','POST']) 
-def crear_pdf() :
+@app.route('/informacion_pdf',methods=['GUEST','POST']) 
+def informacion_pdf() :
        if request.method == 'POST': 
           titulo = request.form['titu']        
           parada = request.form['para']
@@ -98,17 +98,13 @@ def crear_pdf() :
           municipio=request.form['muni']
           provincia=request.form['prov']
           region=request.form['zona']
-          aporte=request.form['apor']
+          cuota=request.form['apor']
           pre_p=request.form['prep']
           pre_f=request.form['pref'] 
           miembros=request.form['miem'] 
-          geolocalizacion=request.form['geol']   
-          fecha = datetime.strftime(datetime.now(),"%Y %m %d") 
-          cur =connection.cursor()  
-          cuotas_hist = funciones.pendiente_aport(cur,parada) 
-          cur.close()     
-          pdf=funciones.imprimir(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuotas_hist )
-          return render_template('imprimir.html',pdf=pdf)    
+          geolocalizacion=request.form['geol']        
+          funciones.imprimir_info(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuota,region,geolocalizacion )
+          return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password,limites=limites)    
                  
           
         
@@ -125,13 +121,12 @@ def miembros_pdf():
         pre_p=request.form['prep']
         pre_f=request.form['pref'] 
         miembros=request.form['miem'] 
-        geolocalizacion=request.form['geol']   
-        fecha = datetime.strftime(datetime.now(),"%Y %m %d") 
+        geolocalizacion=request.form['geol']    
         cur =connection.cursor()  
         cuotas_hist = funciones.pendiente_aport(cur,parada) 
         cur.close()     
-        pdf=funciones.imprimir_lista(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuotas_hist )
-        return render_template('imprimir.html',pdf=pdf)   
+        funciones.imprimir_lista(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuotas_hist )
+        return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password,limites=limites)   
 
 
 @app.route("/finanzas_pdf",methods=['GUEST','POST'])
@@ -148,12 +143,11 @@ def finanzas_pdf():
         pre_f=request.form['pref'] 
         miembros=request.form['miem'] 
         geolocalizacion=request.form['geol']   
-        fecha = datetime.strftime(datetime.now(),"%Y %m %d")
         cur =connection.cursor()
         diario = funciones.diario_general_pdf(cur,parada)
         cur.close()
-        pdf=funciones.imprimir_finanzas(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,diario )
-        return render_template('imprimir.html',pdf=pdf) 
+        funciones.imprimir_finanzas(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,diario )
+        return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password,limites=limites) 
 
 
 @app.route("/listado_pdf",methods=['GUEST','POST'])
@@ -170,12 +164,10 @@ def listado_pdf():
         pre_f=request.form['pref'] 
         cantidad=request.form['miem'] 
         geolocalizacion=request.form['geol']   
-        fecha = datetime.strftime(datetime.now(),"%Y %m %d") 
         cur =connection.cursor()  
         miembros=funciones.lista_miembros(cur,parada)         
-        pdf=funciones.imprimir_miembros(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,cantidad,titulo,miembros )
-        print(pdf)
-        return render_template('imprimir.html',pdf=pdf)  
+        funciones.imprimir_miembros(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,cantidad,titulo,miembros )
+        return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password,limites=limites)    
 
 
 
