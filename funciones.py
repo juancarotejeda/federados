@@ -1,6 +1,5 @@
 import os
 from fpdf import FPDF
-from pathlib import Path
 
 def check_parada(cur,parada):
     cur.execute(f"SELECT autorizar FROM tabla_index WHERE nombre = '{parada}' ")
@@ -69,8 +68,6 @@ def diario_general(cur,parada):
     else:
         return []
 
-
-
 def diario_general_pdf(cur,parada):
     if parada !=[]:
         prestamos=[]
@@ -105,7 +102,6 @@ def diario_general_pdf(cur,parada):
     else:
         return []
 
-
 def pendiente_aport(cur,parada):
         var1=[]
         var2=[]
@@ -135,8 +131,6 @@ def pendiente_aport(cur,parada):
         else:
            return [] 
 
-
-
 def lista_prestamos(cur,parada):
         cur.execute(f"SHOW TABLES LIKE '{parada}_prestamos'")
         verificar=cur.fetchall()
@@ -145,8 +139,6 @@ def lista_prestamos(cur,parada):
             nombres=cur.fetchall()
             return nombres
         return []
-
-
 
 def dividir_lista(lista,lon) : 
     return [lista[n:n+lon] for n in range(0,len(lista),lon)]     
@@ -164,7 +156,7 @@ def verif_p(cur,parada,cedula):
          return True
     else:
          return False 
-     
+         
 def nombres_miembro(cur,parada):
         listado=[]
         cur.execute(f"SELECT nombre FROM {parada} ")
@@ -182,9 +174,7 @@ def info_personal(cur,parada,cedula):
        return nombre[0]
     else:
       return []  
-
-
-    
+   
 def dat_miembros(cur,parada,miembro):
     cur.execute(f"SELECT nombre,cedula,telefono,funcion FROM {parada} WHERE nombre='{miembro}'")
     listado=cur.fetchall()
@@ -221,11 +211,8 @@ def vef_cedula_federado(cur,password):
             lista_paradas+=parada              
          return lista_paradas             
   return []   
-
-   
-       
-def imprimir_info(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuota,region,geolocalizacion):
-        os.makedirs(f'static/pdf/pdf_{parada}', exist_ok=True)
+      
+def imprimir_info(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuota,region,geolocalizacion,id_factura):
         pdf = FPDF()
         pdf = FPDF(orientation='P',unit='mm',format='Letter')
         pdf.alias_nb_pages()
@@ -247,7 +234,7 @@ def imprimir_info(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembro
         pdf.set_xy(115.0, 31.0)
         pdf.cell(ln=0, h=5.5, align='L', w=10.0, txt='N\xba: ', border=0)
         pdf.set_xy(135.0, 31.0)
-        pdf.cell(ln=0, h=9.5, align='L', w=60.0, txt='00000001', border=0)
+        pdf.cell(ln=0, h=9.5, align='L', w=60.0, txt=f'{id_factura}', border=0)
         pdf.set_font('arial', 'B', 12.0)
         pdf.set_xy(18.0, 48)
         pdf.cell(ln=0, h=5.0, align='L', w=98.0, txt='GRUPO ACTEC', border=0)    
@@ -297,15 +284,11 @@ def imprimir_info(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembro
         pdf.set_xy(17.0, 105.0)
         pdf.cell(ln=0, h=5.0, align='L', w=48.0, txt='GEOLUGAR:', border=0)
         pdf.set_xy(45.0, 105.0)
-        pdf.cell(ln=0, h=5.0, align='L', w=20.0, txt=f'{geolocalizacion}', border=0)  
-                  
-        pdf.output(f"static/pdf/pdf_{parada}/informacion_{fecha}.pdf", 'F')    
-
+        pdf.cell(ln=0, h=5.0, align='L', w=20.0, txt=f'{geolocalizacion}', border=0)                      
+        pdf.output(f"pdfs/pdf_{parada}/informacion_{fecha}.pdf",'F')    
+        return
     
-
-
-def imprimir_finanzas(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,diario):
-        os.makedirs(f'static/pdf/pdf_{parada}', exist_ok=True)
+def imprimir_finanzas(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,diario,id_factura):
         pdf = FPDF()
         pdf = FPDF(orientation='P',unit='mm',format='Letter')
         pdf.alias_nb_pages()
@@ -327,7 +310,7 @@ def imprimir_finanzas(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,mie
         pdf.set_xy(115.0, 31.0)
         pdf.cell(ln=0, h=5.5, align='L', w=10.0, txt='N\xba: ', border=0)
         pdf.set_xy(135.0, 31.0)
-        pdf.cell(ln=0, h=9.5, align='L', w=60.0, txt='00000001', border=0)
+        pdf.cell(ln=0, h=9.5, align='L', w=60.0, txt=f'{id_factura}', border=0)
         pdf.set_font('arial', 'B', 12.0)
         pdf.set_xy(18.0, 48)
         pdf.cell(ln=0, h=5.0, align='L', w=98.0, txt='GRUPO ACTEC', border=0)    
@@ -386,12 +369,10 @@ def imprimir_finanzas(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,mie
                 pdf.cell(w=35.0,h= 10.0, txt=(valor[0]),border=1,ln=0,align='C',fill=0)
                 pdf.cell(w=90.0, h=10.0,txt=str(valor[1]),border=1,ln=0,align='L',fill=0)
                 pdf.multi_cell(w=45.0, h=10.0,txt=str(valor[2]),border=1,align='C',fill=0)            
-        pdf.output(f"static/pdf/pdf_{parada}/finanzas_{fecha}.pdf", 'F')    
+        pdf.output(f"pdfs/pdf_{parada}/finanzas_{fecha}.pdf", 'F')    
+        return
 
-
-
-def imprimir_lista(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuotas_hist):
-    os.makedirs(f'static/pdf/pdf_{parada}', exist_ok=True)
+def imprimir_lista(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuotas_hist,id_factura):
     pdf = FPDF()
     pdf = FPDF(orientation='P',unit='mm',format='Letter')
     pdf.alias_nb_pages()
@@ -413,7 +394,7 @@ def imprimir_lista(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembr
     pdf.set_xy(115.0, 31.0)
     pdf.cell(ln=0, h=5.5, align='L', w=10.0, txt='N\xba: ', border=0)
     pdf.set_xy(135.0, 31.0)
-    pdf.cell(ln=0, h=9.5, align='L', w=60.0, txt='00000001', border=0)
+    pdf.cell(ln=0, h=9.5, align='L', w=60.0, txt=f'{id_factura}', border=0)
     pdf.set_font('arial', 'B', 12.0)
     pdf.set_xy(18.0, 48)
     pdf.cell(ln=0, h=5.0, align='L', w=98.0, txt='GRUPO ACTEC', border=0)    
@@ -476,13 +457,10 @@ def imprimir_lista(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembr
             pdf.cell(w=25.0, h=10.0,txt=str(valor[2]),border=1,ln=0,align='C',fill=0)
             pdf.cell(w=25.0, h=10.0,txt=str(valor[3]),border=1,ln=0,align='C',fill=0)
             pdf.multi_cell(w=25.0, h=10.0,txt=str(valor[4]),border=1,align='C',fill=0)            
-    pdf.output(f"static/pdf/pdf_{parada}/historial_{fecha}.pdf", 'F')    
-  
-
-
-   
-def imprimir_miembros(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,cantidad,titulo,miembros):
-        os.makedirs(f'static/pdf/pdf_{parada}', exist_ok=True)
+    pdf.output(f"pdfs/pdf_{parada}/historial_{fecha}.pdf", 'F') 
+    return   
+     
+def imprimir_miembros(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,cantidad,titulo,miembros,id_factura):
         pdf = FPDF()
         pdf = FPDF(orientation='P',unit='mm',format='Letter')
         pdf.alias_nb_pages()
@@ -504,7 +482,7 @@ def imprimir_miembros(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,can
         pdf.set_xy(115.0, 31.0)
         pdf.cell(ln=0, h=5.5, align='L', w=10.0, txt='N\xba: ', border=0)
         pdf.set_xy(135.0, 31.0)
-        pdf.cell(ln=0, h=9.5, align='L', w=60.0, txt='00000001', border=0)
+        pdf.cell(ln=0, h=9.5, align='L', w=60.0, txt=f'{id_factura}', border=0)
         pdf.set_font('arial', 'B', 12.0)
         pdf.set_xy(18.0, 48)
         pdf.cell(ln=0, h=5.0, align='L', w=98.0, txt='GRUPO ACTEC', border=0)    
@@ -567,5 +545,8 @@ def imprimir_miembros(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,can
                 pdf.cell(w=30.0, h=10.0,txt=str(valor[2]),border=1,ln=0,align='C',fill=0)
                 pdf.cell(w=30.0, h=10.0,txt=str(valor[3]),border=1,ln=0,align='C',fill=0)
                 pdf.multi_cell(w=30.0, h=10.0,txt=str(valor[4]),border=1,align='C',fill=0)                  
-        pdf.output(f"static/pdf/pdf_{parada}/listado_{fecha}.pdf",'F')   
+        pdf.output(f"pdfs/pdf_{parada}/listado_{fecha}.pdf",'F')   
         return
+    
+    
+
