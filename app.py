@@ -72,7 +72,7 @@ def seleccion():
                 cuotas_hist = funciones.pendiente_aport(cur,parada)
                 cabecera=funciones.info_cabecera(cur,parada)            
                 cur.close()  
-                os.makedirs(f'pdfs/pdf_{parada}', exist_ok=True)         
+                #os.makedirs(f'pdfs/pdf_{parada}', exist_ok=True)         
                 return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password,limites=limites)  
             else:
                 paradas=funciones.vef_cedula_federado(cur,password)                                                                                      
@@ -82,7 +82,7 @@ def seleccion():
                 cuotas_hist = funciones.pendiente_aport(cur,parada)
                 cabecera=funciones.info_cabecera(cur,parada)
                 cur.close()
-                os.makedirs(f'pdfs/pdf_{parada}', exist_ok=True)            
+                #os.makedir(f'pdfs/pdf_{parada}', exist_ok=True)            
                 return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password,limites=limites)                
         else:
             msg = 'su password no esta registrado!'        

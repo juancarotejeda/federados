@@ -285,7 +285,7 @@ def imprimir_info(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembro
         pdf.cell(ln=0, h=5.0, align='L', w=48.0, txt='GEOLUGAR:', border=0)
         pdf.set_xy(45.0, 105.0)
         pdf.cell(ln=0, h=5.0, align='L', w=20.0, txt=f'{geolocalizacion}', border=0)                      
-        pdf.output(f"pdfs/pdf_{parada}/informacion_{fecha}.pdf",'F')    
+        pdf.output(f"../pdf_{parada}_informacion_{fecha}.pdf",'F')    
         return
     
 def imprimir_finanzas(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,diario,id_factura):
@@ -369,7 +369,7 @@ def imprimir_finanzas(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,mie
                 pdf.cell(w=35.0,h= 10.0, txt=(valor[0]),border=1,ln=0,align='C',fill=0)
                 pdf.cell(w=90.0, h=10.0,txt=str(valor[1]),border=1,ln=0,align='L',fill=0)
                 pdf.multi_cell(w=45.0, h=10.0,txt=str(valor[2]),border=1,align='C',fill=0)            
-        pdf.output(f"pdfs/pdf_{parada}/finanzas_{fecha}.pdf", 'F')    
+        pdf.output(f"../pdf_{parada}_finanzas_{fecha}.pdf", 'F')    
         return
 
 def imprimir_lista(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuotas_hist,id_factura):
@@ -457,7 +457,7 @@ def imprimir_lista(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembr
             pdf.cell(w=25.0, h=10.0,txt=str(valor[2]),border=1,ln=0,align='C',fill=0)
             pdf.cell(w=25.0, h=10.0,txt=str(valor[3]),border=1,ln=0,align='C',fill=0)
             pdf.multi_cell(w=25.0, h=10.0,txt=str(valor[4]),border=1,align='C',fill=0)            
-    pdf.output(f"pdfs/pdf_{parada}/historial_{fecha}.pdf", 'F') 
+    pdf.output(f"../pdf_{parada}_historial_{fecha}.pdf", 'F') 
     return   
      
 def imprimir_miembros(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,cantidad,titulo,miembros,id_factura):
@@ -545,7 +545,7 @@ def imprimir_miembros(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,can
                 pdf.cell(w=30.0, h=10.0,txt=str(valor[2]),border=1,ln=0,align='C',fill=0)
                 pdf.cell(w=30.0, h=10.0,txt=str(valor[3]),border=1,ln=0,align='C',fill=0)
                 pdf.multi_cell(w=30.0, h=10.0,txt=str(valor[4]),border=1,align='C',fill=0)                  
-        pdf.output(f"pdfs/pdf_{parada}/listado_{fecha}.pdf",'F')   
+        pdf.output(f"../pdf_{parada}_listado_{fecha}.pdf",'F')   
         return
     
     
