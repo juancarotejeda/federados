@@ -57,11 +57,13 @@ def verificador():
 def seleccion(): 
    msg = ''   
    if request.method == 'POST': 
-        global limites,password,paradas,fecha,informacion,miembros,diario,cuotas_hist,cabecera  
+        global limites,password,paradas,fecha,informacion,miembros,diario,cuotas_hist,cabecera,logo  
         parada = request.form['selector']
         password = request.form['password'] 
         limites = request.form['acceso']  
         fecha = datetime.strftime(datetime.now(),"%Y_%m_%d_%H") 
+        logo=open('./static/imagenes/logo-motoben.jpg','rb')
+        print(logo)
         cur =connection.cursor() 
         if parada!= []:
             if password == 'intrant': 
@@ -71,8 +73,7 @@ def seleccion():
                 diario = funciones.diario_general(cur,parada)
                 cuotas_hist = funciones.pendiente_aport(cur,parada)
                 cabecera=funciones.info_cabecera(cur,parada)            
-                cur.close()  
-                #os.makedirs(f'pdfs/pdf_{parada}', exist_ok=True)         
+                cur.close()        
                 return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password,limites=limites)  
             else:
                 paradas=funciones.vef_cedula_federado(cur,password)                                                                                      
@@ -81,8 +82,7 @@ def seleccion():
                 diario = funciones.diario_general(cur,parada)
                 cuotas_hist = funciones.pendiente_aport(cur,parada)
                 cabecera=funciones.info_cabecera(cur,parada)
-                cur.close()
-                #os.makedir(f'pdfs/pdf_{parada}', exist_ok=True)            
+                cur.close()          
                 return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password,limites=limites)                
         else:
             msg = 'su password no esta registrado!'        
@@ -102,8 +102,10 @@ def informacion_pdf() :
           pre_p=request.form['prep']
           pre_f=request.form['pref'] 
           miembros=request.form['miem'] 
-          geolocalizacion=request.form['geol']        
-          funciones.imprimir_info(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuota,region,geolocalizacion,id_factura )
+          geolocalizacion=request.form['geol'] 
+          cur=connection.cursor()      
+          funciones.imprimir_info(cur,parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuota,region,geolocalizacion,id_factura )
+          cur.close()
           return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password,limites=limites)    
                        
 @app.route("/miembros_pdf",methods=['GUEST','POST'])
@@ -121,9 +123,9 @@ def miembros_pdf():
         miembros=request.form['miem'] 
         geolocalizacion=request.form['geol']    
         cur =connection.cursor()  
-        cuotas_hist = funciones.pendiente_aport(cur,parada) 
-        cur.close()     
-        funciones.imprimir_lista(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuotas_hist,id_factura )
+        cuotas_hist = funciones.pendiente_aport(cur,parada)      
+        funciones.imprimir_lista(cur,parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,cuotas_hist,id_factura )
+        cur.close()
         return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password,limites=limites)   
 
 @app.route("/finanzas_pdf",methods=['GUEST','POST'])
@@ -141,9 +143,9 @@ def finanzas_pdf():
         miembros=request.form['miem'] 
         geolocalizacion=request.form['geol']   
         cur =connection.cursor()
-        diario = funciones.diario_general_pdf(cur,parada)
+        diario = funciones.diario_general_pdf(cur,parada)       
+        funciones.imprimir_finanzas(cur,parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,diario,id_factura )
         cur.close()
-        funciones.imprimir_finanzas(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,miembros,titulo,diario,id_factura )
         return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password,limites=limites) 
 
 @app.route("/listado_pdf",methods=['GUEST','POST'])
@@ -162,7 +164,8 @@ def listado_pdf():
         geolocalizacion=request.form['geol']   
         cur =connection.cursor()  
         miembros=funciones.lista_miembros(cur,parada)         
-        funciones.imprimir_miembros(parada,fecha,direccion,provincia,municipio,pre_p,pre_f,cantidad,titulo,miembros,id_factura )
+        funciones.imprimir_miembros(cur,parada,fecha,direccion,provincia,municipio,pre_p,pre_f,cantidad,titulo,miembros,id_factura )
+        cur.close()
         return render_template('index.html',miembros=miembros,cabecera=cabecera,informacion=informacion,fecha=fecha,diario=diario,cuotas_hist=cuotas_hist,paradas=paradas,password=password,limites=limites)    
 
 
