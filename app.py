@@ -31,7 +31,8 @@ def login():
 def verificador(): 
    msg = ''   
    if request.method == 'POST':        
-    password = request.form['password'] 
+    passwordx = request.form['password'] 
+    password=passwordx.lower()
     cur =connection.cursor()
     paradas=funciones.vef_cedula_federado(cur,password) 
     if paradas!= []: 
@@ -62,8 +63,6 @@ def seleccion():
         password = request.form['password'] 
         limites = request.form['acceso']  
         fecha = datetime.strftime(datetime.now(),"%Y_%m_%d_%H") 
-        logo=open('./static/imagenes/logo-motoben.jpg','rb')
-        print(logo)
         cur =connection.cursor() 
         if parada!= []:
             if password == 'intrant': 

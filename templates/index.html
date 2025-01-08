@@ -92,6 +92,7 @@
     </style>    
     <!-- Custom styles for this template -->
   <link href="/static/css/navbar-fixed.css" rel="stylesheet">
+  <link href="/static/css/banner.css" rel="stylesheet"> 
   </head>
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -145,14 +146,36 @@
     </div>   
 
 <main class="container">
+  <div class="container-fluid">
   <div class="row mb-3 text-center">
-  <div class="col-lg-4 mt-1 text-primary mb-1"> 
-    <p class="lead">Este es un enorme esfuerzo realizado por  la <code> SUBDIRECCION DEL INTRAN</code>
-      con el apollo tecnico del <code>GRUPO ACTEC</code> </p>
-    <h1>Gracias por aceptar esta aplicacion!!</h1>
-  </div>
+    <div id="bannerCarousel"class=" container carousel slide pb-4 bg-primary rounded m-auto" data-bs-ride="carousel" data-bs-interval="10000">   
+        <div class="carousel-item active  mb-4 ">
+          <div class="banner">
+            <p>¡Descubre nuestras ofertas exclusivas! 🌟</p>
+            <a href="https://juancarotejeda.github.io/banner1.githb.io" target="_blank">Haz clic aquí</a>
+          </div>
+        </div>
+        <div class="carousel-item mb-4">
+          <div class="banner">
+            <p>¡Viaja con descuento este mes! ✈️</p>
+            <a href="https://juancarotejeda.github.io/banner2.github.io" target="_blank">Explora más</a>
+          </div>
+        </div>
+        <div class="carousel-item mb-4">
+          <div class="banner">
+            <p>¡Nuevos productos a precios increíbles! 🛒</p>
+            <a href="https://juancarotejeda.github.io/banner3.github.io" target="_blank">Comprar ahora</a>
+          </div>
+        </div>  
+      <!-- Indicadores -->
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+    </div>
   
-    <div class="container-fluid">
+    
       <article class="my-3" id="modal">
           <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2 ">
           <div class="bd-example-snippet bd-code-snippet">            
@@ -225,7 +248,7 @@
   </div> 
   </article>  
 </div>
-  </div>
+
  
   <div class="modal fade" id="myModal2">
     <div class="modal-dialog ">
@@ -277,7 +300,6 @@
          </table>
         </div> 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success" >Crear pdf</button>
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
         </div>
         </div>
@@ -285,7 +307,7 @@
         </div>
         </div> 
         </div>
-        </div>
+
 
         <div class="modal fade" id="myModal3">
           <div class="modal-dialog ">
@@ -364,7 +386,6 @@
           </table>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success" >Crear pdf</button>
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
         </div>
         </form>
@@ -420,7 +441,6 @@
       </div>
     <!-- Modal footer -->
     <div class="modal-footer">
-    <button type="submit" class="btn btn-success" >Crear pdf</button>  
     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
     </div>
     </form>
@@ -507,15 +527,12 @@
       {%endfor%}
     <!-- Modal footer -->
     <div class="modal-footer">
-      <button type="submit" class="btn btn-success" >Crear pdf</button>  
       <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
       </div>
       </form>
       </div>
       </div>
       </div> 
-  </div>
-  </div>
   </main>
  <script src="/static/js/min.js"></script>
   </body>

@@ -1,5 +1,3 @@
-import os
-from fpdf import FPDF
 
               
 def check_parada(cur,parada):
