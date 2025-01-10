@@ -148,12 +148,13 @@
         </li>
       </ul>
     </div>
- 
+
       <main class="form-signin w-100 m-auto">
-        <form action="/verificador" method="POST">
-          <img class="mb-4" src="/static/favicon/android-chrome-512x512.png" alt="" width="72" height="57">
-          <h1 class="h3 mb-3 fw-normal">BIENVENIDO</h1>
-          <div class="form-floating">  
+       <div class=" container mb-2">
+        <img src="/static/imagenes/logo-motoben.jpg"  width="80" height="40" alt="">
+       </div>
+        <div class=" container">
+        <div class="form-floating">  
             {% with messages = get_flashed_messages()%}
             {% if messages%}
             {% for message in messages%}
@@ -162,9 +163,10 @@
             {%endfor%}
             {%endif%}
             {%endwith%} 
-          </div>         
-                  
-          <div class="form-floating">
+        </div> 
+        <div>        
+          <form action="/verificador" method="POST">        
+          <div class="form-floating">  
             <input type="text" name="password" class="form-control" id="floatingPassword" placeholder="Password">
             <label for="floatingPassword">Municipio</label>
           </div>
@@ -182,9 +184,11 @@
           </button>
           </div>         
         </form>
+      </div>
+        </div>
         <div class="col-lg-4  publicidad mb-1 me-10 ">     
           <img  src="/static/imagenes/indotel.gif" class=" w-100" alt="publicidad">
-      </div>          
+      </div>         
       </main>
 
       <script src="../static/js/min.js"></script>
